@@ -5,14 +5,14 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 
-public class XML {
+public class Dati {
 	XMLInputFactory xmlif = null;
 	XMLStreamReader xmlr=null;
 	private String codiciFiscali = "codiciFiscali.xml";
 	private String comuni = "comuni.xml";
 	private String inputPersone = "inputPersone.xml";
 	
-	public void leggiCodiciFiscali() {
+	public String leggiCodiciFiscali() {
 		try {
 			xmlif = XMLInputFactory.newInstance();
 			xmlr = xmlif.createXMLStreamReader(codiciFiscali, new FileInputStream(codiciFiscali)); 
@@ -45,6 +45,7 @@ public class XML {
 			System.out.println("Errore nell'inizializzazione del reader:");
 			System.out.println(e.getMessage()); 
 			}
+		return codiciFiscali;
 	}
 	
 	public void leggiComuni() {
