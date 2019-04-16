@@ -1,13 +1,16 @@
 package unibs.fp.it.codicefiscale;
 
+import java.util.ArrayList;
+
 public class Persona {
 	private String nome=null;
 	private String cognome;
-	private int data;
+	private String data;
 	private String comune;
 	private String sesso;
 	
-	public Persona(String _nome, String _cognome, int _data, String _comune, String _sesso) {
+	
+	public Persona(String _nome, String _cognome, String _data, String _comune, String _sesso) {
 		this.nome=_nome;
 		this.cognome=_cognome;
 		this.data=_data;
@@ -28,7 +31,7 @@ public class Persona {
 		return cognome;
 	}
 
-	public int getData() {
+	public String getData() {
 		return data;
 	}
 
@@ -54,7 +57,7 @@ public class Persona {
 
 
 
-	public void setData(int data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
@@ -68,5 +71,11 @@ public class Persona {
 
 	public void setSesso(String sesso) {
 		this.sesso = sesso;
+	}
+	
+	public void stampa(ArrayList liste) {
+		for (int i = 0; i < liste.size(); i++) {
+			System.out.println(liste.indexOf(i));
+		}
 	}
 }

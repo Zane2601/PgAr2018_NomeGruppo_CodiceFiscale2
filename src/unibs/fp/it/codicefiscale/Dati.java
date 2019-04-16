@@ -13,7 +13,7 @@ public class Dati {
 	private String codiciFiscali="codiciFiscali.xml";
 	private String comuni = "comuni.xml";
 	private String inputPersone ="inputPersone.xml";
-	
+	ArrayList<Persona> persone=new ArrayList<>();
 	public String leggiCodiciFiscali() {
 		try {
 			xmlif = XMLInputFactory.newInstance();
@@ -88,7 +88,7 @@ public class Dati {
 			}
 	}
 	
-	public String leggiInputPersone() {
+	public void leggiInputPersone(Persona p) {
 		
 		try {
 			xmlif = XMLInputFactory.newInstance();
@@ -103,8 +103,22 @@ public class Dati {
 					 System.out.println("Tag " + xmlr.getLocalName());
 					 for (int i = 0; i < xmlr.getAttributeCount(); i++)
 						 System.out.printf(" => attributo %s->%s%n", xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i));
-					 //if(xmlr.getLocalName().equals()) p.add(nome);
-					 //break;
+					 if(xmlr.getLocalName().equals("nome")) {                       //parte per creare la persona
+					 p.setNome(xmlr.getText());
+					 }
+					 if(xmlr.getLocalName().equals("cognome")) {
+						 p.setCognome(xmlr.getText());
+						 }
+					 if(xmlr.getLocalName().equals("comune_nascita")) {
+						 p.setComune(xmlr.getText());
+						 }
+					 if(xmlr.getLocalName().equals("sesso")) {
+						 p.setSesso(xmlr.getText());
+						 }
+					 if(xmlr.getLocalName().equals("data_nascita")) {
+						 p.setData(xmlr.getText());
+						 }
+					 break;
 			     case XMLStreamConstants.END_ELEMENT: // fine di un elemento: stampa il nome del tag chiuso 
 			    	 System.out.println("END-Tag " + xmlr.getLocalName()); 
 			    	 break;
@@ -115,15 +129,18 @@ public class Dati {
 			    	 if (xmlr.getText().trim().length() > 0) // controlla se il testo non contiene solo spazi
 			         System.out.println("-> " + xmlr.getText()); 
 			    	 break;
-			 }
+			    	 
+			     }
+				
 			    xmlr.next();
 			 }
+			 persone.add(p);
 		} 
 		catch (Exception e) {
 			System.out.println("Errore nell'inizializzazione del reader:");
 			System.out.println(e.getMessage()); 
 			}
-		return leggiInputPersone();
+		
 		}
 
 	}

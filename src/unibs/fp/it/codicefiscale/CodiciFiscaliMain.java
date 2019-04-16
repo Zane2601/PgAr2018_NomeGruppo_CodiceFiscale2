@@ -12,14 +12,16 @@ public class CodiciFiscaliMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Dati d = new Dati();
-	    
-		System.out.println("messaggio" + d.leggiInputPersone() );
-		Persona p = new Persona();
-		p.setCognome("giordani");
+		d.leggiInputPersone(p);
+	    Persona p= new Persona();
+		//System.out.println("messaggio" + d.leggiInputPersone() );
+		//Persona p = new Persona();
+		/*p.setCognome("giordani");
 		ArrayList<Persona> persone = new ArrayList<>();
 		persone.add(p);
 		p.setCognome("ponzin");
-		persone.add(p);
-	}
+		persone.add(p);*/
+		p.stampa(d.);
+		}
 
 }
