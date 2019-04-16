@@ -1,6 +1,8 @@
 package unibs.fp.it.codicefiscale;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
+
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
@@ -8,9 +10,9 @@ import javax.xml.stream.XMLStreamReader;
 public class Dati {
 	XMLInputFactory xmlif = null;
 	XMLStreamReader xmlr=null;
-	private String codiciFiscali = "codiciFiscali.xml";
+	private String codiciFiscali="codiciFiscali.xml";
 	private String comuni = "comuni.xml";
-	private String inputPersone = "inputPersone.xml";
+	private String inputPersone ="inputPersone.xml";
 	
 	public String leggiCodiciFiscali() {
 		try {
@@ -86,7 +88,7 @@ public class Dati {
 			}
 	}
 	
-	public void leggiInputPersone() {
+	public String leggiInputPersone() {
 		
 		try {
 			xmlif = XMLInputFactory.newInstance();
@@ -100,8 +102,9 @@ public class Dati {
 				 case XMLStreamConstants.START_ELEMENT: // inizio di un elemento: stampa il nome del tag e i suoi attributi 
 					 System.out.println("Tag " + xmlr.getLocalName());
 					 for (int i = 0; i < xmlr.getAttributeCount(); i++)
-						 System.out.printf(" => attributo %s->%s%n", xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i)); 
-					 break;
+						 System.out.printf(" => attributo %s->%s%n", xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i));
+					 //if(xmlr.getLocalName().equals()) p.add(nome);
+					 //break;
 			     case XMLStreamConstants.END_ELEMENT: // fine di un elemento: stampa il nome del tag chiuso 
 			    	 System.out.println("END-Tag " + xmlr.getLocalName()); 
 			    	 break;
@@ -120,7 +123,7 @@ public class Dati {
 			System.out.println("Errore nell'inizializzazione del reader:");
 			System.out.println(e.getMessage()); 
 			}
-			
+		return leggiInputPersone();
 		}
 
 	}
