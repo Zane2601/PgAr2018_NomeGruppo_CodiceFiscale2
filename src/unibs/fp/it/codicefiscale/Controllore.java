@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 
 
 public class Controllore {
-	private static final String SCHEMA_CODICE_FISCALE = "/^(?:(?:[B-DF-HJ-NP-TV-Z]|[AEIOU])[AEIOU][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[1256LMRS][\\dLMNP-V])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$/i";
+	private static final String SCHEMA_CODICE_FISCALE = "[a-zA-Z]{6}\\d\\d(?:[A-EHLMPR-Ta-ehlmpr-t](?:[04][1-9]|[1256]\\d)|[DHPSdhps][37]0|[ACELMRTacelmrt][37][01])[a-zA-Z]\\d\\d\\d[a-zA-Z]";
 	Dati codiceFiscale = new Dati ();
 	
 	
@@ -15,7 +15,7 @@ public class Controllore {
 	 * @param codiceDaControllare: codice fiscale da passere al metodo e che deve essere controllato
 	 * @return ritorna true se il codice fiscale è valido, false altrimenti
 	 */
-	public boolean controllaFormato (String SCHEMA_CODICE_FISCALE, String codiceDaControllare) {    //VEDETE COME PASSARE IL CODICE FISCALE AL METODO CHE IO NON LO SO
+	public boolean controllaFormato (String codiceDaControllare) {    //VEDETE COME PASSARE IL CODICE FISCALE AL METODO CHE IO NON LO SO
 		if(Pattern.matches(SCHEMA_CODICE_FISCALE, codiceDaControllare)) {
 			return true;
 		}else {
