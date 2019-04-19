@@ -1,15 +1,20 @@
 package unibs.fp.it.codicefiscale;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 public class Dati {
 	XMLInputFactory xmlif = null;
 	XMLStreamReader xmlr=null;
+	
+	
 	private String codiciFiscali="codiciFiscali.xml";
 	private String comuni = "comuni.xml";
 	private String inputPersone ="inputPersone.xml";
@@ -141,8 +146,38 @@ public class Dati {
 			System.out.println(e.getMessage()); 
 			}
 		
+	
 		}
-
+	
+	public void creaXMl() {
+		
+		 try {
+			 XMLOutputFactory xmlof = null;
+			 XMLStreamWriter xmlw = null;
+	         xmlof = XMLOutputFactory.newInstance();
+		     xmlw = xmlof.createXMLStreamWriter(new FileOutputStream("OUTPUT"), "utf-8"); 
+		     xmlw.writeStartDocument("utf-8", "1.0");
+		     //Qui va il richiamo alla lista che contiene i dati delle persone e i codici fiscali 
+		     try { // blocco try per raccogliere eccezioni
+		    	 xmlw.writeStartElement(""); // scrittura del tag radice <programmaArnaldo> 
+		    	 xmlw.writeComment("INIZIO LISTA"); // scrittura di un commento
+		    	 for (int i = 0; i < .length; i++) {    //bisogna mettere apposto
+		    	 xmlw.writeStartElement("Persona"); // scrittura del tag autore... 
+		    	 xmlw.writeAttribute("id", Integer.toString(i)); // ...con attributo id... 
+		    	 xmlw.writeCharacters([i]); // ...e content dato  //bisogna mettere apposto
+		    	 xmlw.writeEndElement(); // chiusura di </autore>
+		    	 }
+		    	 xmlw.writeEndElement(); // chiusura di </programmaArnaldo> 
+		    	 xmlw.writeEndDocument(); // scrittura della fine del documento xmlw.flush(); // svuota il buffer e procede alla scrittura xmlw.close(); // chiusura del documento e delle risorse impiegate
+		    	 } catch (Exception e) { // se c’è un errore viene eseguita questa parte 
+		    		 System.out.println("Errore nella scrittura");
+		    	 }
+		     } 
+		 catch (Exception e) {
+		 System.out.println("Errore nell'inizializzazione del writer:"); 
+		 System.out.println(e.getMessage());
+		 }
+	}
 	}
 	
 			
