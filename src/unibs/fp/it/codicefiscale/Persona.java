@@ -73,6 +73,10 @@ public class Persona {
 		this.sesso = sesso;
 	}
 	
+	public ArrayList persone() {
+		
+		return persone();
+	}
 	public void stampa(ArrayList liste) {
 		for (int i = 0; i < liste.size(); i++) {
 			System.out.println(liste.indexOf(i));
