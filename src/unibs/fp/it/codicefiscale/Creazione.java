@@ -96,6 +96,7 @@ public class Creazione {
 			//se si arriva già a 3 caratteri estratti non serve controllare anche le altre lettere
 			if (k == 3) return codicePrimeTreConsonanti;
 			
+			
 		}
 		return codicePrimeTreConsonanti;
 	}
