@@ -72,50 +72,70 @@ public class Creazione {
 	}
 	
 	
-	
 /////////////////////////////////////////////////////////////////////////////
-	public static String creaCodiceMese(int mesePersona) {
+	//in base al mese di nascita preso come stringa (int non accetta 08, 09) ritorna la lettera corrispondente
+	public static String creaCodiceMese(String mesePersona) {
+		String meseCodice = "";
 		switch (mesePersona) {
-		case 01:
-			
+		case "01":
+			meseCodice = "A";
 			break;
-case 02:
-			
+		case "02":
+			meseCodice = "B";
 			break;
-case value:
-	
-	break;
-case value:
-	
-	break;
-case value:
-	
-	break;
-case value:
-	
-	break;
-case value:
-	
-	break;
-case value:
-	
-	break;
-case value:
-	
-	break;
-case value:
-	
-	break;
-case value:
-	
-	break;
-case value:
-	
-	break;
+		case "03":
+			meseCodice = "C";
+			break;
+		case "04":
+			meseCodice = "D";
+			break;
+		case "05":
+			meseCodice = "E";
+			break;
+		case "06":
+			meseCodice = "H";
+			break;
+		case "07":
+			meseCodice = "L";
+			break;
+		case "08":
+			meseCodice = "M";
+			break;
+		case "09":
+			meseCodice = "P";
+			break;
+		case "10":
+			meseCodice = "R";
+			break;
+		case "11":
+			meseCodice = "S";
+			break;
+		case "12":
+			meseCodice = "T";
+			break;
 
 		default:
 			break;
 		}
+		
+		return meseCodice;
+	}
+	
+	
+///////////////////////////////////////////////////////////////////////////////////////////
+	//prendo in ingresso il giorno di nascita e il sesso; torno il codice del giorno (se F aggiungo +40)
+	public static String creaCodiceGiorno(String giornoPersona, String sessoPersona) {
+
+		//se il sesso è F
+		if (sessoPersona.equals("F")) {
+			//converto la stringa del giorno in int
+			int giornoPersonaInt = Integer.parseInt(giornoPersona);
+			giornoPersonaInt += 40;
+			//riconverto da int a string 
+			giornoPersona = Integer.toString(giornoPersonaInt);
+		}
+
+		return giornoPersona;
 	}
 	private char[] riempiSpaziX(int k, char[] codiceConSpaziVuoti) {
 		char[] codiceDaRiempire = codiceConSpaziVuoti;
