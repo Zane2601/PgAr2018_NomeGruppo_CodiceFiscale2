@@ -66,12 +66,57 @@ public class Creazione {
 
 
 /////////////////////////////////////////////////////////////////////////////
-//crea una sottostringa di due numeri da un int preso in ingresso e la ritorna
+//crea il codice per l'anno di nascita, una sottostringa di due numeri da un int preso in ingresso e la ritorna
 	public static String creaCodiceAnno(int annoPersona) {	
 	return String.valueOf(annoPersona).substring(2);
 	}
 	
 	
+	
+/////////////////////////////////////////////////////////////////////////////
+	public static String creaCodiceMese(int mesePersona) {
+		switch (mesePersona) {
+		case 01:
+			
+			break;
+case 02:
+			
+			break;
+case value:
+	
+	break;
+case value:
+	
+	break;
+case value:
+	
+	break;
+case value:
+	
+	break;
+case value:
+	
+	break;
+case value:
+	
+	break;
+case value:
+	
+	break;
+case value:
+	
+	break;
+case value:
+	
+	break;
+case value:
+	
+	break;
+
+		default:
+			break;
+		}
+	}
 	private char[] riempiSpaziX(int k, char[] codiceConSpaziVuoti) {
 		char[] codiceDaRiempire = codiceConSpaziVuoti;
 		//se anche le vocali sono insufficienti si riempiono gli spazi rimasti con delle 'X'
