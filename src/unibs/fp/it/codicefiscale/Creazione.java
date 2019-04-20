@@ -10,10 +10,9 @@ public class Creazione {
 		String codiceCognome = creaCodiceCognome(persona.getCognome());
 		String codiceNome = creaCodiceNome(persona.getNome());
 		String data = persona.getData();
-		String anno = data.substring(0, 3);
+		String codiceAnno = data.substring(2, 3);
 		String mese = data.substring(5, 7);
-		String giorno = data.substring(9);
-		String codiceAnno = creaCodiceAnno(anno);
+		String giorno = data.substring(8);
 		String codiceMese = creaCodiceMese(mese);
 		String codiceGiorno = creaCodiceGiorno(giorno, persona.getSesso());
 		
@@ -64,10 +63,11 @@ public class Creazione {
 
 /////////////////////////////////////////////////////////////////////////////
 //crea il codice per l'anno di nascita, una sottostringa di due numeri da un int preso in ingresso e la ritorna
+	/*
 	public static String creaCodiceAnno(String annoPersona) {	
 	return String.valueOf(annoPersona).substring(2);
 	}
-	
+	*/
 	
 /////////////////////////////////////////////////////////////////////////////
 	//in base al mese di nascita preso come stringa (int non accetta 08, 09) ritorna la lettera corrispondente
