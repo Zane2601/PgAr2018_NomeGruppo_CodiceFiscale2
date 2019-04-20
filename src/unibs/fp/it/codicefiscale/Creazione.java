@@ -2,6 +2,7 @@ package unibs.fp.it.codicefiscale;
 
 import java.util.Iterator;
 
+
 public class Creazione {
 	public String creaCodice(Persona persona) {
 		String codice = new String(new char[16]);
@@ -136,6 +137,12 @@ public class Creazione {
 		}
 
 		return giornoPersona;
+	}
+	
+////////////////////////////////////////////////////////////////////////
+	public static String creaCodiceComune(String comunePersona) {
+		String codiceComunePersona = Dati.leggiInputComuni(comunePersona);
+		return codiceComunePersona;
 	}
 	private char[] riempiSpaziX(int k, char[] codiceConSpaziVuoti) {
 		char[] codiceDaRiempire = codiceConSpaziVuoti;
