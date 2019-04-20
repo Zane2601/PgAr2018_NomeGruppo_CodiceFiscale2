@@ -21,39 +21,32 @@ public class Creazione {
 	
 ///////////////////////////////////////////////////////////////////////////////
 	//crea il codice iniziale di 3 caratteri dal cognome
-	private String creaCodiceCognome(String cognomePersona) {
-		int i = 0;
-		char[] codiceCognomePersona = new char[3];
+	public static String creaCodiceCognome(String cognomePersona) {
+		String codiceCognomePersona = "";
 	
 		codiceCognomePersona = estraiPrimeTreConsonanti(cognomePersona);
 		
 		//se vengono trovate 3 consonanti viene ritornato il codice composto da 3 consonanti
-		if (codiceCognomePersona[2] != 0) return codiceCognomePersona.toString();
-			else {
-				if (codiceCognomePersona[0] == 0) i = 0;
-				else
-					if (codiceCognomePersona[1] == 0) i = 1;
-					else if (codiceCognomePersona[2] == 0) i = 2;
-				}
-		
-		//se non vengono trovate 3 consonanti si passa a questo for, che cerca le vocali e riempie gli eventuali spazi svuoti
-		for (int j = 0; j < cognomePersona.length(); j++) {
+		if (codiceCognomePersona.length() == 3) return codiceCognomePersona;
+		else {
+			//se non vengono trovate 3 consonanti si passa a questo for, che cerca le vocali e riempie gli eventuali spazi svuoti
+			for (int j = 0; j < cognomePersona.length(); j++) {
 					
-			if (isConsonant(cognomePersona.charAt(j)) == false) {
-				codiceCognomePersona[i] = cognomePersona.charAt(j);
-				i++;
+				if (isConsonant(cognomePersona.charAt(j)) == false) {
+					codiceCognomePersona += cognomePersona.charAt(j);
+				}
+				if (codiceCognomePersona.length() == 3) return codiceCognomePersona.toString();
 			}
-			if (i == 3) return codiceCognomePersona.toString();
-		}
 		
-		//se, anche dopo aver controllato le vocali, restano spazi vuoti (dei 3 totali) si riempiono gli spazi con questo metodo
-		return riempiSpaziX(i, codiceCognomePersona).toString();
+			//se, anche dopo aver controllato le vocali, restano spazi vuoti (dei 3 totali) si riempiono gli spazi con questo metodo
+			return riempiSpaziX(codiceCognomePersona).toString();
+			}
 	}
 	
 ////////////////////////////////////////////////////////////////////////////
 	private String creaCodiceNome(String nomePersona) {
 		int i = 0;
-		char[] codiceNomePersona = new char[3];
+		String codiceNomePersona = "";
 		if (contaConsonanti(nomePersona) >= 4) {
 			
 			
@@ -144,29 +137,28 @@ public class Creazione {
 		String codiceComunePersona = Dati.leggiInputComuni(comunePersona);
 		return codiceComunePersona;
 	}
-	private char[] riempiSpaziX(int k, char[] codiceConSpaziVuoti) {
-		char[] codiceDaRiempire = codiceConSpaziVuoti;
+	
+	
+	public static String riempiSpaziX(String codiceConSpaziDaRiempire) {
 		//se anche le vocali sono insufficienti si riempiono gli spazi rimasti con delle 'X'
 		do {
-			codiceDaRiempire[k] = 'X';
-			k++;
-		} while (k < 3);
-		return codiceDaRiempire;
+			codiceConSpaziDaRiempire += "X";
+		} while (codiceConSpaziDaRiempire.length() < 3);
+		return codiceConSpaziDaRiempire;
 	}
 	
 	
-	public static char[] estraiPrimeTreConsonanti(String datoPersona) {
-		char[] codicePrimeTreConsonanti = new char[3];
-		int k = 0;
+	public static String estraiPrimeTreConsonanti(String datoPersona) {
+		String codicePrimeTreConsonanti = "";
+		
 		//scorre il cognome (o nome) della persona preso in ingresso
 		for (int j = 0; j < datoPersona.length() ; j++) {
 			if (isConsonant(datoPersona.charAt(j))) {
-				codicePrimeTreConsonanti[k] = datoPersona.charAt(j);
-				k++;
+				codicePrimeTreConsonanti += datoPersona.charAt(j);
 			}
 			
 			//se si arriva già a 3 caratteri estratti non serve controllare anche le altre lettere
-			if (k == 3) return codicePrimeTreConsonanti;
+			if (codicePrimeTreConsonanti.length() == 3) return codicePrimeTreConsonanti;
 			
 			
 		}
@@ -188,7 +180,7 @@ public class Creazione {
 		
 		//controlla che un carattere dato in ingresso sia una consonante
 		public static boolean isConsonant(char carattere) {
-			if (carattere != 'a' || carattere == 'e' || carattere == 'i' || carattere == 'o' || carattere == 'u' || carattere == 'A' || carattere == 'E' || carattere == 'I' || carattere == 'O' || carattere == 'U') return false;
+			if (carattere == 'a' || carattere == 'e' || carattere == 'i' || carattere == 'o' || carattere == 'u' || carattere == 'A' || carattere == 'E' || carattere == 'I' || carattere == 'O' || carattere == 'U') return false;
 				else return true;
 		}
 		
