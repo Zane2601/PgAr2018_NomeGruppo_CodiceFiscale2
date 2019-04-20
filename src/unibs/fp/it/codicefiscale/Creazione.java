@@ -4,17 +4,24 @@ import java.util.Iterator;
 
 
 public class Creazione {
-	public String creaCodice(Persona persona) {
+	public static String creaCodice(Persona persona) {
 		String codice = new String(new char[16]);
 		
 		String codiceCognome = creaCodiceCognome(persona.getCognome());
 		String codiceNome = creaCodiceNome(persona.getNome());
+		String data = persona.getData();
+		String anno = data.substring(0, 3);
+		String mese = data.substring(5, 7);
+		String giorno = data.substring(9);
+		String codiceAnno = creaCodiceAnno(anno);
+		String codiceMese = creaCodiceMese(mese);
+		String codiceGiorno = creaCodiceGiorno(giorno, persona.getSesso());
 		
 		/*
 		 * 	DOPO AVER CREATO TUTTI I METODI PER CREARE LE STRINGHE / CODICI, SCOMMENTARE IL COMMENTO QUA SOTTO!!
 		 */
 
-		//codice = codiceCognome + codiceNome + codiceAnno + codiceMese + codiceGiorno + codiceComune + codiceControllo;
+		codice = codiceCognome + codiceNome + codiceAnno + codiceMese + codiceGiorno; // + codiceComune + codiceControllo;
 		return codice;
 	}
 	
@@ -24,7 +31,7 @@ public class Creazione {
 	public static String creaCodiceCognome(String cognomePersona) {
 		String codiceCognomePersona = "";
 	
-		codiceCognomePersona = estraiPrimeTreConsonanti(cognomePersona);
+		codiceCognomePersona = estraiPrimeTreConsonanti(cognomePersona, "cognome");
 		
 		//se vengono trovate 3 consonanti viene ritornato il codice composto da 3 consonanti
 		if (codiceCognomePersona.length() == 3) return codiceCognomePersona;
@@ -44,24 +51,20 @@ public class Creazione {
 	}
 	
 ////////////////////////////////////////////////////////////////////////////
-	private String creaCodiceNome(String nomePersona) {
+	public static String creaCodiceNome(String nomePersona) {
 		int i = 0;
 		String codiceNomePersona = "";
-		if (contaConsonanti(nomePersona) >= 4) {
-			
-			
-		} else {
-			codiceNomePersona = estraiPrimeTreConsonanti(nomePersona);
-		}
+		
+		codiceNomePersona = estraiPrimeTreConsonanti(nomePersona, "nome");
 		
 		
-		return codiceNomePersona.toString();
+		return codiceNomePersona;
 	}
 
 
 /////////////////////////////////////////////////////////////////////////////
 //crea il codice per l'anno di nascita, una sottostringa di due numeri da un int preso in ingresso e la ritorna
-	public static String creaCodiceAnno(int annoPersona) {	
+	public static String creaCodiceAnno(String annoPersona) {	
 	return String.valueOf(annoPersona).substring(2);
 	}
 	
@@ -139,6 +142,7 @@ public class Creazione {
 	}
 	
 	
+	
 	public static String riempiSpaziX(String codiceConSpaziDaRiempire) {
 		//se anche le vocali sono insufficienti si riempiono gli spazi rimasti con delle 'X'
 		do {
@@ -148,21 +152,32 @@ public class Creazione {
 	}
 	
 	
-	public static String estraiPrimeTreConsonanti(String datoPersona) {
-		String codicePrimeTreConsonanti = "";
+	public static String estraiPrimeTreConsonanti(String datoPersona, String nomeCognome) {
+		String codiceTreConsonanti = "";
 		
+		if ((nomeCognome.equals("nome") && (contaConsonanti(datoPersona) <= 3) || nomeCognome.equals("cognome"))) {
 		//scorre il cognome (o nome) della persona preso in ingresso
-		for (int j = 0; j < datoPersona.length() ; j++) {
-			if (isConsonant(datoPersona.charAt(j))) {
-				codicePrimeTreConsonanti += datoPersona.charAt(j);
+			for (int j = 0; j < datoPersona.length() ; j++) {
+				if (isConsonant(datoPersona.charAt(j))) {
+					codiceTreConsonanti += datoPersona.charAt(j);
+				}
+			
+				//se si arriva già a 3 caratteri estratti non serve controllare anche le altre lettere
+				if (codiceTreConsonanti.length() == 3) return codiceTreConsonanti;
+				}
 			}
-			
-			//se si arriva già a 3 caratteri estratti non serve controllare anche le altre lettere
-			if (codicePrimeTreConsonanti.length() == 3) return codicePrimeTreConsonanti;
-			
-			
+		
+		else {
+			String codiceConsonanti = "";
+			//crea con prima, terza  e quarta consonante
+			for (int j = 0; j < datoPersona.length() ; j++) {
+				if (isConsonant(datoPersona.charAt(j))) {
+					codiceConsonanti += datoPersona.charAt(j);
+				}
+			}
+			codiceTreConsonanti = codiceConsonanti.substring(0, 1) + codiceConsonanti.substring(2, 4); 
 		}
-		return codicePrimeTreConsonanti;
+		return codiceTreConsonanti;
 	}
 	
 	//conta le consonanti contenute in una parola (usato per il metodo creaCodiceNome)
