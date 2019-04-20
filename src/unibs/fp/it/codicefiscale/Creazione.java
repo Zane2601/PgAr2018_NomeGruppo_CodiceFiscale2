@@ -10,7 +10,7 @@ public class Creazione {
 		String codiceCognome = creaCodiceCognome(persona.getCognome());
 		String codiceNome = creaCodiceNome(persona.getNome());
 		String data = persona.getData();
-		String codiceAnno = data.substring(2, 3);
+		String codiceAnno = data.substring(2, 4);
 		String mese = data.substring(5, 7);
 		String giorno = data.substring(8);
 		String codiceMese = creaCodiceMese(mese);
@@ -35,19 +35,12 @@ public class Creazione {
 		//se vengono trovate 3 consonanti viene ritornato il codice composto da 3 consonanti
 		if (codiceCognomePersona.length() == 3) return codiceCognomePersona;
 		else {
-			//se non vengono trovate 3 consonanti si passa a questo for, che cerca le vocali e riempie gli eventuali spazi svuoti
-			for (int j = 0; j < cognomePersona.length(); j++) {
-					
-				if (isConsonant(cognomePersona.charAt(j)) == false) {
-					codiceCognomePersona += cognomePersona.charAt(j);
-				}
-				if (codiceCognomePersona.length() == 3) return codiceCognomePersona.toString();
-			}
-		
-			//se, anche dopo aver controllato le vocali, restano spazi vuoti (dei 3 totali) si riempiono gli spazi con questo metodo
-			return riempiSpaziX(codiceCognomePersona).toString();
+			return seConsonantiNonBastano(codiceCognomePersona, cognomePersona);
 			}
 	}
+
+
+
 	
 ////////////////////////////////////////////////////////////////////////////
 	public static String creaCodiceNome(String nomePersona) {
@@ -56,8 +49,11 @@ public class Creazione {
 		
 		codiceNomePersona = estraiPrimeTreConsonanti(nomePersona, "nome");
 		
-		
-		return codiceNomePersona;
+		//se vengono trovate 3 consonanti viene ritornato il codice composto da 3 consonanti
+		if (codiceNomePersona.length() == 3) return codiceNomePersona;
+		else {
+			return seConsonantiNonBastano(codiceNomePersona, nomePersona);
+			}
 	}
 
 
@@ -140,6 +136,23 @@ public class Creazione {
 		String codiceComunePersona = Dati.leggiInputComuni(comunePersona);
 		return codiceComunePersona;
 	}
+	
+	
+	
+	public static String seConsonantiNonBastano(String codiceDaCompletare, String nominativo) {
+		//se non vengono trovate 3 consonanti si passa a questo for, che cerca le vocali e riempie gli eventuali spazi svuoti
+		for (int j = 0; j < nominativo.length(); j++) {
+				
+			if (isConsonant(nominativo.charAt(j)) == false) {
+				codiceDaCompletare += nominativo.charAt(j);
+			}
+			if (codiceDaCompletare.length() == 3) return codiceDaCompletare.toString();
+		}
+
+		//se, anche dopo aver controllato le vocali, restano spazi vuoti (dei 3 totali) si riempiono gli spazi con questo metodo
+		return riempiSpaziX(codiceDaCompletare).toString();
+	}
+	
 	
 	
 	
