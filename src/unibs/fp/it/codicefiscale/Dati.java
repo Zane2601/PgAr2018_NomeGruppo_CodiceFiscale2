@@ -55,7 +55,7 @@ public class Dati {
 		return codiciFiscali;
 	}
 	
-	public void leggiComuni() {
+	public String leggiComuni(Persona p) {
 		
 		try {
 			xmlif = XMLInputFactory.newInstance();
@@ -81,7 +81,12 @@ public class Dati {
 			         break; // commento: ne stampa il contenuto
 			     case XMLStreamConstants.CHARACTERS: // content all’interno di un elemento: stampa il testo 
 			    	 if (xmlr.getText().trim().length() > 0) // controlla se il testo non contiene solo spazi
-			         System.out.println("-> " + xmlr.getText()); 
+			         System.out.println("-> " + xmlr.getText());
+			    	 if(xmlr.getLocalName().equals("nome")) {
+			    		 if(xmlr.getText().equals(p.getComune())){
+			    			 if(xmlr.getLocalName().equals("codice")) return xmlr.getText();
+			    		 }
+			    	 }
 			    	 break;
 			 }
 			    xmlr.next();
