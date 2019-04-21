@@ -1,11 +1,13 @@
-package it.unibs.fp.codiciFiscaliCopia;
+package unibs.fp.it.codicefiscale;
 
 import java.util.Iterator;
 
 
-public class CreazioneCopia {
-	public static String creaCodice(PersonaCopia persona) {
-		String codice = new String(new char[16]);
+public class Creazione {
+	public static String creaCodice(Persona persona) {
+		String codiceSenzaControllo = "";
+		String codiceCompleto = "";
+		
 		
 		String codiceCognome = creaCodiceCognome(persona.getCognome());
 		String codiceNome = creaCodiceNome(persona.getNome());
@@ -16,13 +18,10 @@ public class CreazioneCopia {
 		String codiceMese = creaCodiceMese(mese);
 		String codiceGiorno = creaCodiceGiorno(giorno, persona.getSesso());
 		String codiceComune = creaCodiceComune(persona.getComune());
-		
-		/*
-		 * 	DOPO AVER CREATO TUTTI I METODI PER CREARE LE STRINGHE / CODICI, SCOMMENTARE IL COMMENTO QUA SOTTO!!
-		 */
 
-		codice = codiceCognome + codiceNome + codiceAnno + codiceMese + codiceGiorno + codiceComune; // + codiceControllo;
-		return codice;
+		codiceSenzaControllo = codiceCognome + codiceNome + codiceAnno + codiceMese + codiceGiorno + codiceComune;
+		codiceCompleto = codiceSenzaControllo + creaCodiceControllo(codiceSenzaControllo);
+		return codiceCompleto;
 	}
 	
 	
@@ -126,15 +125,139 @@ public class CreazioneCopia {
 	
 ////////////////////////////////////////////////////////////////////////
 	public static String creaCodiceComune(String comunePersona) {
-		String codiceComunePersona = DatiCopia.leggiListaComuni(comunePersona);
+		String codiceComunePersona = Dati.cercaXml(comunePersona, "comuni.xml");
 		return codiceComunePersona;
 	}
 	
 	
 /////////////////////////////////////////////////////////////////////////
-	//public static String creaCodiceControllo(String )
+	public static String creaCodiceControllo(String codiceSenzaControllo) {
+		String carattereControllo = "";
+		String filePariDispari = "";
+		int somma = 0;
+		
+		/*
+		 * controlla se il carattere di cui controllare il codice corrisponente è un numero
+		 * (questa parte poteva essere omessa e calcoalta con l'xml corrispondente come viene
+		 * fatto per le lettere (vedi sotto), solo che la ricerca con i numeri dentro l'xml
+		 * interrompeva la ricerca prima del dovuto e ritornava valori non esatti)
+		 */
+		for (int i = 0; i < codiceSenzaControllo.length(); i++) {
+			if (codiceSenzaControllo.substring(i, i+1).equals("0") ||
+				codiceSenzaControllo.substring(i, i+1).equals("1") ||
+				codiceSenzaControllo.substring(i, i+1).equals("2") ||
+				codiceSenzaControllo.substring(i, i+1).equals("3") ||
+				codiceSenzaControllo.substring(i, i+1).equals("4") ||
+				codiceSenzaControllo.substring(i, i+1).equals("5") ||
+				codiceSenzaControllo.substring(i, i+1).equals("6") ||
+				codiceSenzaControllo.substring(i, i+1).equals("7") ||
+				codiceSenzaControllo.substring(i, i+1).equals("8") ||
+				codiceSenzaControllo.substring(i, i+1).equals("9")) {
+				
+				//il numero (ancora in stringa) viene convertito in int, per poter usare lo switch nel metodo invocato 
+				int carInt = Integer.parseInt(codiceSenzaControllo.substring(i, i+1));
+				
+				if ((i+1)%2 == 0) {
+					carattereControllo = switchNumeriPosizioni(carInt, "pari");
+				
+				} else {
+					carattereControllo = switchNumeriPosizioni(carInt, "dispari");
+				}
+			//altrimenti, se il carattere NON è un numero, il valore corrispondente viene cercato in un xml
+			} else {
+				if ((i+1) % 2 == 0) {
+					filePariDispari = "letterePari.xml";
+				} else {
+					filePariDispari = "lettereDispari.xml";
+				}
+				
+				//viene invocato il metodo di ricerca in un xml, passando il carattere (passato come sottostringa di 1 carattere)
+				carattereControllo = Dati.cercaXml(codiceSenzaControllo.substring(i, i+1), filePariDispari);
+			}
+
+			//man mano che si determina il valore corrispondente alla posizione/carattere la somma viene aumentata
+			somma += Integer.parseInt(carattereControllo);
+			
+			//esco dal for
+			} 
 	
+		//si calcola il resto per poter determinare l'ultimo carattere (di controllo)
+		int restoDiv = somma % 26;
+		//si converte in stringa il resto appena calcolato
+		String restoDivString = Integer.toString(restoDiv);
+		//il resto viene passato al metodo di ricerca in xml, assieme alla stringa del nome dell'xml in cui cercare
+		carattereControllo = Dati.cercaXml(restoDivString, "carattereFinale.xml");
+		
+		return carattereControllo;
+	}
+	
+	//FINE DEI METODI PER CREARE LE SINGOLE SOTTOSTRINGHE (CODICI) CONTENUTI NEL CODICE FISCALE COMPLETO
 /////////////////////////////////////////////////////////////////////////
+
+
+	/*
+	 *ricevendo in ingresso il numero presente in una posizione del codice fiscale, e
+	 *sapendo che si trovi in una posizione pari o dispari, ritorna il valore corrispondente
+	 */	
+	public static String switchNumeriPosizioni(int numero, String pariOrDispari) {
+		String valoreCorrispondente = "";
+		switch (numero) {
+		case 0:
+			if (pariOrDispari.equals("pari")) {
+				valoreCorrispondente = "0";
+			} else valoreCorrispondente = "1";
+			break;
+		case 1:
+			if (pariOrDispari.equals("pari")) {
+				valoreCorrispondente = "1";
+			} else valoreCorrispondente = "0";
+			break;
+		case 2:
+			if (pariOrDispari.equals("pari")) {
+				valoreCorrispondente = "2";
+			} else valoreCorrispondente = "5";
+			break;
+		case 3:	
+			if (pariOrDispari.equals("pari")) {
+				valoreCorrispondente = "3";
+			} else valoreCorrispondente = "7";
+			break;
+		case 4:
+			if (pariOrDispari.equals("pari")) {
+				valoreCorrispondente = "4";
+			} else valoreCorrispondente = "9";
+			break;
+		case 5:
+			if (pariOrDispari.equals("pari")) {
+				valoreCorrispondente = "5";
+			} else valoreCorrispondente = "13";
+			break;
+		case 6:
+			if (pariOrDispari.equals("pari")) {
+				valoreCorrispondente = "6";
+			} else valoreCorrispondente = "15";
+			break;
+		case 7:
+			if (pariOrDispari.equals("pari")) {
+				valoreCorrispondente = "7";
+			} else valoreCorrispondente = "17";
+			break;
+		case 8:
+			if (pariOrDispari.equals("pari")) {
+				valoreCorrispondente = "8";
+			} else valoreCorrispondente = "19";
+			break;
+		case 9:
+			if (pariOrDispari.equals("pari")) {
+				valoreCorrispondente = "9";
+			} else valoreCorrispondente = "21";
+			break;
+		default:
+			break;
+		}
+		return valoreCorrispondente;
+	}
+
 
 	//questo metodo viene invocato quando la lunghezza del codice del nominativo (cognome o nome) non è sufficiente (<3)
 	public static String seConsonantiNonBastano(String codiceDaCompletare, String nominativo) {
