@@ -188,29 +188,26 @@ public class Dati {
 		 }
 	}
 	
-	public static String leggiListaComuni(String nomeComune) {
+	public static String cercaXml(String daCercare, String nomeFile) {
         boolean match = false;   
         XMLInputFactory xmlif1 = null;
         XMLStreamReader xmlr1 = null;
 
-        String comuni = "comuni.xml";
-
         try {
             xmlif1 = XMLInputFactory.newInstance();
-            xmlr1 = xmlif1.createXMLStreamReader(comuni, new FileInputStream(comuni)); 
+            xmlr1 = xmlif1.createXMLStreamReader(nomeFile, new FileInputStream(nomeFile)); 
             while (xmlr1.hasNext()) { 
                 switch (xmlr1.getEventType()) { 
+                
                 case XMLStreamConstants.CHARACTERS: 
-                   //controlla se la lunghezza è maggiore di 0
-                	if (xmlr1.getText().trim().length() > 0) {
-                        //ritorna il nome contenuto nel tag
-                		if (!xmlr1.getText().equals(nomeComune)) {
-                           if (match) {
-                                return xmlr1.getText();
+                    if (xmlr1.getText().trim().length() > 0) {
+                        if (!xmlr1.getText().equals(daCercare)) {
+
+                            if (match) {
+                                return xmlr1.getText();      
                             }
                         }
                         else {
-                        	//ritorna il nome contenuto nel tag
                             if (match) {
                                 return xmlr1.getText();
                             }
@@ -222,7 +219,6 @@ public class Dati {
                 }
                 xmlr1.next();
             }
-            
         }
        
         catch (Exception e) {
@@ -230,7 +226,7 @@ public class Dati {
             System.out.println(e.getMessage()); 
         }
         
-       return comuni;
+       return nomeFile;
     }
 	}
 	
