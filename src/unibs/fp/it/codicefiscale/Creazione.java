@@ -1,10 +1,10 @@
-package unibs.fp.it.codicefiscale;
+package it.unibs.fp.codiciFiscaliCopia;
 
 import java.util.Iterator;
 
 
-public class Creazione {
-	public static String creaCodice(Persona persona) {
+public class CreazioneCopia {
+	public static String creaCodice(PersonaCopia persona) {
 		String codice = new String(new char[16]);
 		
 		String codiceCognome = creaCodiceCognome(persona.getCognome());
@@ -15,12 +15,13 @@ public class Creazione {
 		String giorno = data.substring(8); //sottostringa di data (fino all'ultimo carattere)
 		String codiceMese = creaCodiceMese(mese);
 		String codiceGiorno = creaCodiceGiorno(giorno, persona.getSesso());
+		String codiceComune = creaCodiceComune(persona.getComune());
 		
 		/*
 		 * 	DOPO AVER CREATO TUTTI I METODI PER CREARE LE STRINGHE / CODICI, SCOMMENTARE IL COMMENTO QUA SOTTO!!
 		 */
 
-		codice = codiceCognome + codiceNome + codiceAnno + codiceMese + codiceGiorno; // + codiceComune + codiceControllo;
+		codice = codiceCognome + codiceNome + codiceAnno + codiceMese + codiceGiorno + codiceComune; // + codiceControllo;
 		return codice;
 	}
 	
@@ -125,12 +126,16 @@ public class Creazione {
 	
 ////////////////////////////////////////////////////////////////////////
 	public static String creaCodiceComune(String comunePersona) {
-		String codiceComunePersona = Dati.leggiInputComuni(comunePersona);
+		String codiceComunePersona = DatiCopia.leggiListaComuni(comunePersona);
 		return codiceComunePersona;
 	}
 	
 	
 /////////////////////////////////////////////////////////////////////////
+	//public static String creaCodiceControllo(String )
+	
+/////////////////////////////////////////////////////////////////////////
+
 	//questo metodo viene invocato quando la lunghezza del codice del nominativo (cognome o nome) non è sufficiente (<3)
 	public static String seConsonantiNonBastano(String codiceDaCompletare, String nominativo) {
 		
