@@ -8,12 +8,32 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 
+import it.infoJava.CodiceFiscale;
+import it.infoJava.Metodi;
+
 public class CodiciFiscaliMain {
 
 	public static void main(String[] args) {
+		Dati letti = new Dati();
+		Controllore controllore = new Controllore();
+		
+		ArrayList<CodiceFiscale> codici;
+		codici = letti.leggiCodiciFiscali();
+		int contatore = 0; 
+		
+		for (int i = 0; i < codici.size(); i++) {
+			if (controllore.controllaFormato(codici.get(i))) {
+				// scrivi su nuovo xml
+				contatore ++; // conta i codici fiscali validi, nel caso dovesse servire
+			}
+			
+		}
 		
 		
-		Dati d = new Dati();
+		
+		
+		
+		
 		//d.leggiInputPersone(p);
 	    Persona p= new Persona();
 		//System.out.println("messaggio" + d.leggiInputPersone() );
