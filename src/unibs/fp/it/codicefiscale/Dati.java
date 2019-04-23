@@ -19,11 +19,11 @@ public class Dati {
 	private String comuni = "comuni.xml";
 	private String inputPersone ="inputPersone.xml";
 	ArrayList<Persona> persone=new ArrayList<>();
-	
+	ArrayList<CodiceFiscale> codici = new ArrayList<CodiceFiscale>();
 	
 	
 	public ArrayList<CodiceFiscale> leggiCodiciFiscali() {
-		ArrayList<CodiceFiscale> codici = new ArrayList<CodiceFiscale>();
+		
 		boolean flag = false;
 		
 		try {
@@ -110,11 +110,11 @@ public class Dati {
 			 while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione 
 				 switch (xmlr.getEventType()) { // switch sul tipo di evento
 				 case XMLStreamConstants.START_DOCUMENT: // inizio del documento: stampa che inizia il documento 
-					 System.out.println("Start Read Doc " + inputPersone); 
+					 //System.out.println("Start Read Doc " + inputPersone); 
 					 break;
 			 
 				 case XMLStreamConstants.START_ELEMENT: // inizio di un elemento: stampa il nome del tag e i suoi attributi 
-					 System.out.println("Tag " + xmlr.getLocalName());
+					 //System.out.println("Tag " + xmlr.getLocalName());
 					 for (int i = 0; i < xmlr.getAttributeCount(); i++)
 						 System.out.printf(" => attributo %s->%s%n", xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i));
 					 if(xmlr.getLocalName().equals("nome")) {                       //parte per creare la persona
@@ -171,14 +171,17 @@ public class Dati {
 		    	 xmlw.writeStartElement(""); // scrittura del tag radice <programmaArnaldo> 
 		    	 xmlw.writeComment("INIZIO LISTA"); // scrittura di un commento
 		    	 for (int i = 0; i < .length; i++) {    //bisogna mettere apposto
-		    	 xmlw.writeStartElement("Persona"); // scrittura del tag autore... 
-		    	 xmlw.writeAttribute("id", Integer.toString(i)); // ...con attributo id... 
-		    	 xmlw.writeCharacters([i]); // ...e content dato  //bisogna mettere apposto
-		    	 xmlw.writeEndElement(); // chiusura di </autore>
+		    	        xmlw.writeStartElement("Persona"); // scrittura del tag autore... 
+		    	        xmlw.writeAttribute("id", Integer.toString(i)); // ...con attributo id... 
+		    	        xmlw.writeCharacters([i]); // ...e content dato  //bisogna mettere apposto
+		    	        xmlw.writeEndElement(); // chiusura di </autore>
 		    	 }
 		    	 xmlw.writeEndElement(); // chiusura di </programmaArnaldo> 
-		    	 xmlw.writeEndDocument(); // scrittura della fine del documento xmlw.flush(); // svuota il buffer e procede alla scrittura xmlw.close(); // chiusura del documento e delle risorse impiegate
-		    	 } catch (Exception e) { // se c’è un errore viene eseguita questa parte 
+		    	 xmlw.writeEndDocument(); // scrittura della fine del documento 
+		    	 xmlw.flush(); // svuota il buffer e procede alla scrittura 
+		    	 xmlw.close(); // chiusura del documento e delle risorse impiegate
+		    	 } 
+		     catch (Exception e) { // se c’è un errore viene eseguita questa parte 
 		    		 System.out.println("Errore nella scrittura");
 		    	 }
 		     } 

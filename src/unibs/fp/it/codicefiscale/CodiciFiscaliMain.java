@@ -15,7 +15,7 @@ public class CodiciFiscaliMain {
 	public static void main(String[] args) {
 		Dati letti = new Dati();
 		Controllore controllore = new Controllore();
-		
+		Persona p= new Persona();
 		ArrayList<CodiceFiscale> codici;
 		codici = letti.leggiCodiciFiscali();
 		int contatore = 0; 
@@ -34,7 +34,7 @@ public class CodiciFiscaliMain {
 		
 		
 		//d.leggiInputPersone(p);
-	    Persona p= new Persona();
+	    
 		//System.out.println("messaggio" + d.leggiInputPersone() );
 		//Persona p = new Persona();
 		/*p.setCognome("giordani");
