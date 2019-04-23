@@ -8,8 +8,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 
-import it.infoJava.CodiceFiscale;
-import it.infoJava.Metodi;
+
 
 public class CodiciFiscaliMain {
 
@@ -45,15 +44,6 @@ public class CodiciFiscaliMain {
 		persone.add(p);*/
 		//p.stampa(d.);
 		
-	    Scanner scanner = new Scanner (System.in);
-	    Controllore controllore = new Controllore();
-	    String provaCodice = scanner.next();
-	    
-	    if (controllore.controllaFormato(provaCodice)) {
-	      System.out.printf("Formato del codice fiscale VALIDO");
-	    }else {
-	    	System.out.printf("Formato del codice fiscale NON VALIDO");
-	    }
 		
 		
 		
