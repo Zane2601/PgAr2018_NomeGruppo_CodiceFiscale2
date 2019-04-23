@@ -18,7 +18,9 @@ public class Controllore {
 	public static boolean controllaFormato (CodiceFiscale codiceDaControllare) {    //VEDETE COME PASSARE IL CODICE FISCALE AL METODO CHE IO NON LO SO
 
 		if(Pattern.matches(SCHEMA_CODICE_FISCALE, codiceDaControllare.toString())) {
-			return true;
+			if (codiceDaControllare.toString().substring(14, 15).equals(Creazione.creaCodiceControllo(codiceDaControllare.toString())))
+				return true;
+			else return false;
 		}else {
 			return false;
 		}
