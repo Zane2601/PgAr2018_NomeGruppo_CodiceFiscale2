@@ -14,14 +14,13 @@ public class CodiciFiscaliMain {
 
 	public static void main(String[] args) {
 		Dati letti = new Dati();
-		Controllore controllore = new Controllore();
 		Persona p= new Persona();
 		ArrayList<CodiceFiscale> codici;
 		codici = letti.leggiCodiciFiscali();
 		int contatore = 0; 
 		
 		for (int i = 0; i < codici.size(); i++) {
-			if (controllore.controllaFormato(codici.get(i))) {
+			if (Controllore.controllaFormato(codici.get(i))) {
 				// scrivi su nuovo xml
 				contatore ++; // conta i codici fiscali validi, nel caso dovesse servire
 			}
