@@ -102,7 +102,7 @@ public class Dati {
 	}
 	*/
 	
-	public void leggiInputPersone(Persona p) {
+	public void leggiInputPersone() {
 		
 		try {
 			xmlif = XMLInputFactory.newInstance();
@@ -117,6 +117,7 @@ public class Dati {
 					 //System.out.println("Tag " + xmlr.getLocalName());
 					 for (int i = 0; i < xmlr.getAttributeCount(); i++)
 						 System.out.printf(" => attributo %s->%s%n", xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i));
+					 Persona p = new Persona();
 					 if(xmlr.getLocalName().equals("nome")) {                       //parte per creare la persona
 					 p.setNome(xmlr.getText());
 					 }
