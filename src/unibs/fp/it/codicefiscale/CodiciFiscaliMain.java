@@ -13,38 +13,34 @@ import javax.xml.stream.XMLStreamReader;
 public class CodiciFiscaliMain {
 
 	public static void main(String[] args) {
-		Dati letti = new Dati();
-		Persona p= new Persona();
-		ArrayList<CodiceFiscale> codici;
-		codici = letti.leggiCodiciFiscali();
-		int contatore = 0; 
+		ArrayList <Persona> listaDiPersone;
+		ArrayList<String> codiciPersone = new ArrayList<String>();
 		
-		for (int i = 0; i < codici.size(); i++) {
-			if (Controllore.controllaFormato(codici.get(i))) {
-				// scrivi su nuovo xml
-				contatore ++; // conta i codici fiscali validi, nel caso dovesse servire
-			}
-			
+		Dati d = new Dati();
+		
+		listaDiPersone = d.leggiInputPersone(); 
+		for (int k = 0; k < listaDiPersone.size(); k++) {
+			codiciPersone.add(Creazione.creaCodice(listaDiPersone.get(k)));
+			System.out.println(Creazione.creaCodice(listaDiPersone.get(k)));
 		}
 		
 		
+		ArrayList<CodiceFiscale> codiciLetti = new ArrayList<CodiceFiscale>();
+		codiciLetti = d.leggiCodiciFiscali();
+		int contatoreGiusti = 0; 
+		int contatoreSbagliati = 0;
 		
-		
-		
-		
-		//d.leggiInputPersone(p);
-	    
-		//System.out.println("messaggio" + d.leggiInputPersone() );
-		//Persona p = new Persona();
-		/*p.setCognome("giordani");
-		ArrayList<Persona> persone = new ArrayList<>();
-		persone.add(p);
-		p.setCognome("ponzin");
-		persone.add(p);*/
-		//p.stampa(d.);
-		
-		
-		
+		for (int i = 0; i < codiciLetti.size(); i++) {
+			if (Controllore.controllaFormato(codiciLetti.get(i))) {
+				// scrivi su nuovo xml
+				contatoreGiusti ++; // conta i codici fiscali validi, nel caso dovesse servire
+			} else {
+				contatoreSbagliati++;
+			}
+			
+		}
+		System.out.println("I codici giusti sono: " +contatoreGiusti);
+		System.out.println("I codici sbagliati sono: " +contatoreSbagliati);
 		
 		}
 }

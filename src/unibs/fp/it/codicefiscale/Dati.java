@@ -19,14 +19,14 @@ public class Dati {
 	private String codiciFiscali="codiciFiscali.xml";
 	private String comuni = "comuni.xml";
 	private String inputPersone ="inputPersone.xml";
-	ArrayList<Persona> persone=new ArrayList<>();
+	
 	ArrayList<CodiceFiscale> codici = new ArrayList<CodiceFiscale>();
 	
 	
 	public ArrayList<CodiceFiscale> leggiCodiciFiscali() {
 		
 		boolean flag = false;
-		
+		int j = 0;
 		try {
 			xmlif = XMLInputFactory.newInstance();
 			xmlr = xmlif.createXMLStreamReader(codiciFiscali, new FileInputStream(codiciFiscali));
@@ -36,8 +36,12 @@ public class Dati {
 				case XMLStreamConstants.START_DOCUMENT:
 					break;
 				case XMLStreamConstants.START_ELEMENT:
-					if(xmlr.getLocalName().equals("codice"))
+					if(xmlr.getLocalName().equals("codice")) {
+						CodiceFiscale codiceOggetto = new CodiceFiscale(xmlr.getElementText());
+						codici.add(codiceOggetto);
 						flag = true;
+					}
+						
 					break;
 				case XMLStreamConstants.END_ELEMENT:
 					break;
