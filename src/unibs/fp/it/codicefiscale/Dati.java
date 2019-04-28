@@ -10,6 +10,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
+
 public class Dati {
 	XMLInputFactory xmlif = null;
 	XMLStreamReader xmlr=null;
@@ -102,61 +103,80 @@ public class Dati {
 	}
 	*/
 	
-	public void leggiInputPersone() {
-		
+	public ArrayList<Persona> leggiInputPersone() {
+		ArrayList<Persona> persone=new ArrayList<Persona>();
+		int k = -1;
 		try {
 			xmlif = XMLInputFactory.newInstance();
 			xmlr = xmlif.createXMLStreamReader(inputPersone, new FileInputStream(inputPersone)); 
-			 while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione 
+			
+
+			while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione 
 				 switch (xmlr.getEventType()) { // switch sul tipo di evento
 				 case XMLStreamConstants.START_DOCUMENT: // inizio del documento: stampa che inizia il documento 
+					 
 					 //System.out.println("Start Read Doc " + inputPersone); 
 					 break;
 			 
 				 case XMLStreamConstants.START_ELEMENT: // inizio di un elemento: stampa il nome del tag e i suoi attributi 
-					 //System.out.println("Tag " + xmlr.getLocalName());
-					 for (int i = 0; i < xmlr.getAttributeCount(); i++)
-						 System.out.printf(" => attributo %s->%s%n", xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i));
-					 Persona p = new Persona();
-					 if(xmlr.getLocalName().equals("nome")) {                       //parte per creare la persona
-					 p.setNome(xmlr.getText());
-					 }
-					 if(xmlr.getLocalName().equals("cognome")) {
-						 p.setCognome(xmlr.getText());
-						 }
-					 if(xmlr.getLocalName().equals("comune_nascita")) {
-						 p.setComune(xmlr.getText());
-						 }
-					 if(xmlr.getLocalName().equals("sesso")) {
-						 p.setSesso(xmlr.getText());
-						 }
-					 if(xmlr.getLocalName().equals("data_nascita")) {
-						 p.setData(xmlr.getText());
-						 }
+					switch (xmlr.getLocalName()) {
+					case "persona":
+						 //System.out.println("Tag " + xmlr.getLocalName());
+						 Persona p = new Persona();
+						 persone.add(p);
+						 k++;
+						break;
+						
+					case "nome":
+						persone.get(k).setNome(xmlr.getElementText());
+						break;
+						
+					case "cognome":
+						persone.get(k).setCognome(xmlr.getElementText());
+						break;
+					
+					case "comune_nascita":
+						persone.get(k).setComune(xmlr.getElementText());
+						break;
+					
+					case "sesso":
+						persone.get(k).setSesso(xmlr.getElementText());
+						break;
+					
+					case "data_nascita":
+						persone.get(k).setData(xmlr.getElementText());
+						break;
+					
+					default:
+						break; 
+			    	
+			    	 }
+					 
+										
 					 break;
 			     case XMLStreamConstants.END_ELEMENT: // fine di un elemento: stampa il nome del tag chiuso 
-			    	 System.out.println("END-Tag " + xmlr.getLocalName()); 
+			    	 //System.out.println("END-Tag " + xmlr.getLocalName()); 
+			    	 
 			    	 break;
 			     case XMLStreamConstants.COMMENT:
-			         System.out.println("// commento " + xmlr.getText()); 
+			        // System.out.println("// commento " + xmlr.getText()); 
 			         break; // commento: ne stampa il contenuto
 			     case XMLStreamConstants.CHARACTERS: // content all’interno di un elemento: stampa il testo 
-			    	 if (xmlr.getText().trim().length() > 0) // controlla se il testo non contiene solo spazi
-			         System.out.println("-> " + xmlr.getText()); 
+			    	
 			    	 break;
 			    	 
 			     }
 				
+			
 			    xmlr.next();
-			 }
-			 persone.add(p);
-		} 
+			}
+		}
 		catch (Exception e) {
 			System.out.println("Errore nell'inizializzazione del reader:");
 			System.out.println(e.getMessage()); 
 			}
-		
-	
+			 
+		return persone;
 		}
 	
 	public void creaXMl() {
