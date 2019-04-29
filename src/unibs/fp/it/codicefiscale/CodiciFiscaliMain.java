@@ -39,6 +39,11 @@ public class CodiciFiscaliMain {
 			}
 			
 		}
+		
+		for (int k = 0; k < codiciLetti.size(); k++) {
+			
+			System.out.println(d.leggiCodiciFiscali());
+		}
 		System.out.println("I codici giusti sono: " +contatoreGiusti);
 		System.out.println("I codici sbagliati sono: " +contatoreSbagliati);
 		

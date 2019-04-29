@@ -46,13 +46,13 @@ public class Dati {
 				case XMLStreamConstants.END_ELEMENT:
 					break;
 				case XMLStreamConstants.CHARACTERS:
-					if (flag) {
+					if (flag==true) {
 						codici.add(new CodiceFiscale(xmlr.getText()));
-						flag = false;
+					    flag = false;
 					}
 					break;
 				}
-				xmlr.hasNext();
+				xmlr.next();
 			}//fine while
 			
 		}//fine try 
