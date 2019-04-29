@@ -42,6 +42,7 @@ public class CodiciFiscaliMain {
 		
 		int contatorePresente = 0;
 		int contatoreAssente = 0;
+		int contatoreSpaiati=0;
 		/*
 			for (int i = 0; i < listaDiPersone.size(); i++) {
 				for (int k=0; k < codiciLetti.size(); k++) {
@@ -65,7 +66,9 @@ public class CodiciFiscaliMain {
 			if (codiciLettiString.contains(codiciPersone.get(i))) {
 				System.out.println(codiciPersone.get(i)+" CONTENUTO");
 				contatorePresente++;
-			}else {
+		    }else if(codiciPersone.contains(codiciLettiString.get(i))) {
+			contatoreSpaiati++;
+		    }else  {
 				System.out.println(codiciPersone.get(i)+" NON C'é");
 				contatoreAssente++;
 			}
@@ -75,6 +78,7 @@ public class CodiciFiscaliMain {
 		
 		System.out.println("I codici giusti sono: " +contatoreGiusti);
 		System.out.println("I codici sbagliati sono: " +contatoreSbagliati);
+		System.out.println("I codici Spaiati sono:" + contatoreSpaiati);
 		System.out.println("I codici presenti sono "+ contatorePresente+" I codici non presenti sono :"+contatoreAssente);
 		
 		}
