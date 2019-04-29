@@ -17,14 +17,14 @@ public class CodiciFiscaliMain {
 		ArrayList<String> codiciPersone = new ArrayList<String>();
 		
 		Dati d = new Dati();
-		
+		/*
 		listaDiPersone = d.leggiInputPersone(); 
 		for (int k = 0; k < listaDiPersone.size(); k++) {
 			codiciPersone.add(Creazione.creaCodice(listaDiPersone.get(k)));
-			System.out.println(Creazione.creaCodice(listaDiPersone.get(k)));
+			//System.out.println(Creazione.creaCodice(listaDiPersone.get(k)));
 		}
-		
-		
+		*/
+		//System.out.println(listaDiPersone);
 		ArrayList<CodiceFiscale> codiciLetti = new ArrayList<CodiceFiscale>();
 		codiciLetti = d.leggiCodiciFiscali();
 		int contatoreGiusti = 0; 
@@ -40,10 +40,14 @@ public class CodiciFiscaliMain {
 			
 		}
 		
+		
+		
+		/*
 		for (int k = 0; k < codiciLetti.size(); k++) {
 			
 			System.out.println(d.leggiCodiciFiscali());
 		}
+		*/
 		System.out.println("I codici giusti sono: " +contatoreGiusti);
 		System.out.println("I codici sbagliati sono: " +contatoreSbagliati);
 		

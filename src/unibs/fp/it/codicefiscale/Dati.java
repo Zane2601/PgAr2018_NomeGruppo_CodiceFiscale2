@@ -11,6 +11,8 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
 
+
+
 public class Dati {
 	XMLInputFactory xmlif = null;
 	XMLStreamReader xmlr=null;
@@ -37,8 +39,8 @@ public class Dati {
 					break;
 				case XMLStreamConstants.START_ELEMENT:
 					if(xmlr.getLocalName().equals("codice")) {
-						CodiceFiscale codiceOggetto = new CodiceFiscale(xmlr.getElementText());
-						codici.add(codiceOggetto);
+						//CodiceFiscale codiceOggetto = new CodiceFiscale(xmlr.getElementText());
+						//codici.add(codiceOggetto);
 						flag = true;
 					}
 						
@@ -46,7 +48,7 @@ public class Dati {
 				case XMLStreamConstants.END_ELEMENT:
 					break;
 				case XMLStreamConstants.CHARACTERS:
-					if (flag==true) {
+					if (flag) {
 						codici.add(new CodiceFiscale(xmlr.getText()));
 					    flag = false;
 					}
