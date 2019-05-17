@@ -15,7 +15,7 @@ public class Controllore {
 	 * @param codiceDaControllare: codice fiscale da passere al metodo e che deve essere controllato
 	 * @return ritorna true se il codice fiscale è valido, false altrimenti
 	 */
-	public static boolean controllaFormato (CodiceFiscale codiceDaControllare) {    //VEDETE COME PASSARE IL CODICE FISCALE AL METODO CHE IO NON LO SO
+	public static boolean controllaFormato (String codiceDaControllare) {    //VEDETE COME PASSARE IL CODICE FISCALE AL METODO CHE IO NON LO SO
 
 		if(Pattern.matches(SCHEMA_CODICE_FISCALE, codiceDaControllare.toString())) {
 			if (codiceDaControllare.toString().substring(15).equals(Creazione.creaCodiceControllo(codiceDaControllare.toString())))

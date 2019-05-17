@@ -195,12 +195,12 @@ public class Dati {
 		     xmlw.writeStartDocument("utf-8", "1.0");
 		     //Qui va il richiamo alla lista che contiene i dati delle persone e i codici fiscali 
 		     try { // blocco try per raccogliere eccezioni
-		    	 xmlw.writeStartElement(""); // scrittura del tag radice <programmaArnaldo> 
+		    	 xmlw.writeStartElement("CODICI FISCALI COMPLETI"); // scrittura del tag radice <programmaArnaldo> 
 		    	 xmlw.writeComment("INIZIO LISTA"); // scrittura di un commento
-		    	 for (int i = 0; i < .length; i++) {    //bisogna mettere apposto
+		    	 for (int i = 0; i < leggiInputPersone.length; i++) {    //bisogna mettere apposto
 		    	        xmlw.writeStartElement("Persona"); // scrittura del tag autore... 
 		    	        xmlw.writeAttribute("id", Integer.toString(i)); // ...con attributo id... 
-		    	        xmlw.writeCharacters([i]); // ...e content dato  //bisogna mettere apposto
+		    	        xmlw.writeCharacters(leggiInputPersone[i]); // ...e content dato  //bisogna mettere apposto
 		    	        xmlw.writeEndElement(); // chiusura di </autore>
 		    	 }
 		    	 xmlw.writeEndElement(); // chiusura di </programmaArnaldo> 
@@ -258,6 +258,8 @@ public class Dati {
         
        return nomeFile;
     }
+
+	
 	}
 	
 			
